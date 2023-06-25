@@ -1,0 +1,16 @@
+<?php 
+require_once("./cabecalho.php");
+?>
+<h1 class="text-dark text-center"><strong>Registro salvom sucesso</strong></h1>
+
+<script type="text/javascript">
+  setTimeout(function(){
+    window.location.href = "./page/inicio.php";
+  },5000)
+</script>
+
+
+<?php
+require_once("./rodape.php");
+?>
+

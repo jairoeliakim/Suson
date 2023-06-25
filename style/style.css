@@ -1,0 +1,413 @@
+
+
+.bg-teal {
+  background-color: rgb(26, 165, 119);
+}
+ 
+/*
+.button-link {
+    display: inline-block;
+    padding: 0.5em 1em;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+*/
+.sair{
+    align-items:flex-start;
+    background: hsl(60, 2%, 78%);
+    position: absolute;
+    top: 5%;
+    right: 10%;
+    border-radius: 20px;    
+    width:5vw;                        
+    background: white; 
+    transform: scale(1.1);
+    border-radius: 20px; 
+    padding: 10px 20px;
+}
+
+.local{
+  width: 100%;
+}
+.sair a{
+    text-decoration: none;
+    color: #000000;
+}
+
+
+.atualizarcadastro{
+    align-items: center;
+    text-align: center;
+}
+ 
+.login input {
+        width: 80%;
+        
+        margin: 4vw;
+}
+
+.login a input:hover {
+        width: 90%;
+        
+        border-radius: 5vw;
+}
+
+.atualizarcadastro input {
+        
+        border-radius: 3vw;
+}
+
+.atualizarcadastro input:hover {
+        
+        border-radius: 3.5vw;
+}
+
+/*PAGINA INICIAL*/
+
+.menu {
+    padding: 3em;
+    text-align: center;
+    
+
+    width: 100%;
+   
+    margin: 0 auto;
+  }
+  
+  .menu button {   
+    
+    height: 25vh;
+    border-radius: 20px;
+    border: none;
+    margin: 2em;
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.247);
+    background: rgb(26, 165, 119);
+    
+  }
+  
+  .opcoes :hover {
+    background-color: rgba(73, 158, 255, 0.925);
+    transform: scale(1.1);
+    border-radius: 20px;
+  }
+  
+ 
+  
+  .opcoes  {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    font-family:  'Open Sans', 'Helvetica Neue', sans-serif;
+    display: inline-block;
+    
+    border: 0.2em solid #ffffff;
+  }
+    
+  .listaVacina {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 900px;
+ 
+  }
+  
+  
+  .listaVacina tr {
+    text-align: center;
+  }
+  
+  .listaVacina tr td {
+    border: 0.5px solid black;
+    padding: 10px;
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.247);
+  }
+
+  .newvacina input{
+    display:block;
+
+  }
+  
+
+/* RODAPÉ*/
+
+footer {
+    text-align: center;
+  }
+  
+  form {
+    padding: 10px;
+    margin: 20px auto;  
+    border: 1px solid #CCC;
+    border-radius: 1em;
+  }
+  
+ 
+  
+  form input {
+    padding: 5px;
+    margin: 7px;
+    text-align: center;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+       
+  }
+
+
+/* PAGINA CADASTRO*/
+.lista-produtos { 
+   /* Apenas para centralizar o form na página */
+   align-items: center;
+   width: 50%;
+   margin: 30px;
+   /* Para ver as bordas do formulário */
+   
+   border: 1px solid #CCC;
+   border-radius: 1em;
+   
+   
+   
+}
+.cadastrar {
+    /* Apenas para centralizar o form na página */
+    align-items: center;
+    width: 90%;
+    margin: 20px auto;
+    /* Para ver as bordas do formulário */
+    padding: 20px;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    
+  }
+.cadastrar form{
+  border: 1px solid black;
+			border-collapse: collapse;
+			padding: 5px;
+}
+  
+
+  .button {
+    text-align: center;
+    padding: 10px;
+   
+    
+  }
+  
+ 
+  
+  .button a {
+    text-decoration: none;
+  }
+  
+
+  /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+   /* Estilos CSS para o calendário */
+   .calendar {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+  }
+  
+  .calendar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .calendar .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .calendar .prev-btn,
+  .calendar .next-btn {
+    cursor: pointer;
+  }
+  
+  .calendar .month {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  
+  .calendar .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  
+  .calendar .weekday {
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .calendar .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    font-size: 14px;
+  }
+  
+  .calendar .day {
+    text-align: center;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  
+  .calendar .event {
+    margin-top: 3px;
+    padding: 2px;
+    background-color: #ffc107;
+    border-radius: 2px;
+    font-size: 12px;
+  }
+
+  .event {
+    background-color: #ffc107;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-style: normal black;
+  }
+  
+  table th,
+  table td {
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-style: normal black;
+  }
+  
+  table th {
+    background-color: #f2f2f2;
+    font-style: normal black;
+  }
+  
+  table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  table tr:hover {
+    background-color: #e9e9e9;
+  }
+  
+  /* Estilos CSS para o calendário */
+  .calendar {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+  }
+
+  .calendar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .calendar .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .calendar .prev-btn,
+  .calendar .next-btn {
+    cursor: pointer;
+  }
+
+  .calendar .month {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .calendar .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .calendar .weekday {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .calendar .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    font-size: 14px;
+  }
+
+  .calendar .day {
+    text-align: center;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+
+  .calendar .event {
+    margin-top: 3px;
+    padding: 2px;
+    border-radius: 2px;
+    font-size: 12px;
+  }
+
+  .event {
+    background-color: #ffc107;
+  }
+
+  .inf-label {
+    color: red;
+    font-size: smaller;
+}
