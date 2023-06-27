@@ -16,13 +16,12 @@
 <body>
 <header class="bg-success text-white p-3 d-flex justify-content-between">
     <h3 class="text-center"><?php echo $title; ?></h3>
-    <div>
-        <button class="btn btn-light" title='Para voltar a página Inicial' onclick="goBack()">Inicio</button>
-    </div>
-    <div>
+    <div class="ml-auto">
+        <button class="btn btn-light" title='Para voltar a página Inicial' onclick="goBack()">Voltar</button>
         <button class="btn btn-danger" title='Para Sair do sistema' onclick="exit()">Sair</button>
     </div>
 </header>
+
 
 
     <script src="js/jquery.min.js"></script>

@@ -21,7 +21,6 @@
     }
 </style>
 
-
 <header>
     <?php
     $title = "Registros de Vacinas";
@@ -33,14 +32,8 @@
     <div class="container text-center">
         <?php
         // verifica se o usuário está logado
-
-
         if (isset($_SESSION['id_pessoa'])) {
             $id_pessoa = $_SESSION['id_pessoa'];
-       /* }
-        else (isset($_SESSION["nome"])) {
-            // obtém o ID do usuário da variável de sessão
-            $nome = $_SESSION["nome"];*/
 
             // inclui o arquivo de conexão
             require_once '../modelo/conexao.php';
@@ -53,19 +46,20 @@
                 die("Falha na conexão: " . $conn->connect_error);
             }
 
-            // prepara a instrução SQL para selecionar os dados das vacinas do usuário logado
+            // selecionar os dados das vacinas do usuário logado
             $stmt = $conn->prepare("SELECT vacina_pessoa.id_vacina, cadastrar_pessoa.nome, vacina_pessoa.proxima_vacina, 
                             vacina_pessoa.nome_vacina, nome_vacinante
                         FROM vacina_pessoa
                         JOIN cadastrar_pessoa ON vacina_pessoa.id_pessoa = cadastrar_pessoa.id_pessoa
                         WHERE cadastrar_pessoa.id_pessoa = ? AND vacina_pessoa.proxima_vacina > CURDATE()
-                        ORDER BY vacina_pessoa.proxima_vacina" );
+                        ORDER BY vacina_pessoa.proxima_vacina");
             $stmt->bind_param("i", $id_pessoa);
-
 
             // executa a instrução SQL e obtém o resultado
             $stmt->execute();
             $result = $stmt->get_result();
+            
+             
 
             // verifica se há linhas de resultado
             if ($result->num_rows > 0) {
@@ -99,6 +93,7 @@
             // exibe mensagem caso o usuário não esteja logado
             echo "<p>Você precisa estar logado para visualizar as vacinas.</p>";
         }
+        
         ?>
 
           <div class="mb-3 form-check">
@@ -112,7 +107,8 @@
         <div class="newvacina" style="display: none;">
                 <h3>Registrando uma nova vacina</h3>
                 <!--Adicionar vacina-->                   
-                <div class="mb-3 form-group">                  
+                <div class="mb-3 form-group">
+                <input type="hidden" name="id_pessoa" value="<?php echo $id_pessoa; ?>">               
                     <label for="nome_vacina" class="form-label" required>Nome da vacina:</label>
                     <select id="nome_vacina" name="nome_vacina" class="form-select">
                         <option value="">Selecione uma opção</option>
@@ -159,61 +155,68 @@
                     <label for="proxima_vacina" class="form-label">Próxima dose:</label>
                     <input type="date" id="proxima_vacina" name="proxima_vacina" class="form-control" required>
                 </div>
-                <input type="hidden" name="id_pessoa" value="<?php echo $id_pessoa; ?>">
+                
+                
 
                 <?php              
+                           
                   
-                    // Verificar se há dependentes associados ao usuário logado
-                        $pessoa_dependente = $conn->prepare("SELECT cp.nome, dp.nome_dependente, dp.parentesco 
-                        FROM cadastrar_pessoa cp
-                        JOIN dependentes dp ON dp.id_pessoa = cp.id_pessoa
-                        WHERE cp.id_pessoa =  ?
-                        ");
-                        $pessoa_dependente->bind_param("i", $id_pessoa);
-                        $pessoa_dependente->execute();
-                        $result_dependentes = $pessoa_dependente->get_result();
+                   // Verificar se há dependentes associados ao usuário logado
+                $pessoa_dependente = $conn->prepare("SELECT cp.nome, dp.nome_dependente, dp.parentesco 
+                    FROM cadastrar_pessoa cp
+                    JOIN dependentes dp ON dp.id_pessoa = cp.id_pessoa
+                    WHERE cp.id_pessoa = ?");
+                    $pessoa_dependente->bind_param("i", $id_pessoa);
+                    $pessoa_dependente->execute();
+                    $result_dependentes = $pessoa_dependente->get_result();
 
-                        // Array para armazenar os dependentes
-                        $dependentes = array();
+                    // Array para armazenar os dependentes
+                    $dependentes = array();
 
-                        while ($row = $result_dependentes->fetch_assoc()) {
-                        $nome_dependente = $row['nome_dependente'];
-                        $dependentes[] = $nome_dependente;
+                    while ($row = $result_dependentes->fetch_assoc()) {
+                    $nome_dependente = $row['nome_dependente'];
+                    $dependentes[] = $nome_dependente;
+                    }
+                    $possui_dependentes = (count($dependentes) > 0);
+
+                    $nome_pessoa = ""; // Declaração da variável $nome_pessoa
+
+                    echo "<label for='nome_vacinante'>Buscar pelo nome do vacinante:</label>";
+                    echo "<select class='form-control' id='nome_vacinante' name='nome_vacinante'>";
+                    echo "<option value=''>Selecione o vacinante</option>";
+                    foreach ($dependentes as $dependente) {
+                    echo "<option value='" . $dependente . "'>" . $dependente . "</option>";
+                    }
+                    echo "</select>";
+
+                    if (isset($_SESSION["nome"])) {
+                    $nome = $_SESSION["nome"];
+                    $nome_pessoa = $nome; // Atribuir o valor de $nome a $nome_pessoa
+                    }
+                    ?>
+
+                    <!-- Se houver dependentes, exibir o campo de seleção -->
+                    <div class="mb-3 form-group">
+                    <?php
+                    if ($possui_dependentes) {
+                        echo "<select id='nome_vacinante' name='nome_vacinante' class='form-select'>";
+                        echo "<option value=''>Selecione uma opção</option>";
+                        foreach ($dependentes as $dependente) {
+                            echo "<option value='$dependente'>$dependente</option>";
                         }
-                        $possui_dependentes = (count($dependentes) > 0);
-
-
-                        // Adicionar opção para o nome do usuário logado
-                        if (isset($_SESSION["nome"])) {
-                        $nome = $_SESSION["nome"];
-                        $nome_pessoa = $nome; // Atribuir o valor de $nome a $nome_pessoa
-
-                        }
-
-                        // Se houver dependentes, exibir o campo de seleção
-                             
-                ?>
-                <div class="mb-3 form-group">
-                    <label for="nome_vacinante" class="form-label">Nome do Vacinante:</label>
-                    <?php if ($possui_dependentes): ?>
-                        <select id="nome_vacinante" name="nome_vacinante" class="form-select">
-                            <option value="">Selecione uma opção</option>
-                            <?php foreach ($dependentes as $dependente): ?>
-                                <option value="<?php echo $dependente; ?>"><?php echo $dependente; ?></option>
-                            <?php endforeach; ?>
-                            <option value="<?php echo $nome_pessoa; ?>"><?php echo $nome_pessoa; ?></option>
-                        </select>
-                    <?php else: ?>
-                        <input type="text" id="nome_vacinante" name="nome_vacinante" class="form-control" value="<?php echo $nome_pessoa; ?>" readonly>
-                    <?php endif; ?>
-                </div>
-
+                        echo "</select>";
+                    } else {
+                        echo "<input type='text' id='nome_vacinante' name='nome_vacinante' value='" . (!empty($nome_pessoa) ? $nome_pessoa : "&nome") . "' readonly>";
+                    }
+                    ?>
+                    
+       </div>
                 
                 
                 <input type="submit" value="Registrar vacina" class="btn btn-success">
 
 
-        
+                </div>
 
             </div>
             <?php
@@ -255,26 +258,28 @@
 
 </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Obter a próxima data de vacinação do PHP e convertê-la para uma data JavaScript
-            var proximaVacina = "<?php echo $row['proxima_vacina']; ?>";
-            var dataVacina = new Date(proximaVacina);
+<script>
+    // Função para validar a data de vacinação
+    function validarDataVacina() {
+        var ultimaVacina = document.getElementById("ultima_vacina").value;
+        var proximaVacina = document.getElementById("proxima_vacina").value;
 
-            // Calcular a diferença em milissegundos entre a data de vacinação e a data atual
-            var diffMilissegundos = dataVacina - new Date();
+        if (ultimaVacina !== "" && proximaVacina !== "" && ultimaVacina > proximaVacina) {
+            alert("A próxima vacina não pode ser menor que a última vacina.");
+            return false;
+        }
 
-            // Calcular a diferença em dias
-            var diffDias = Math.floor(diffMilissegundos / (1000 * 60 * 60 * 24));
+        return true;
+    }
 
-            // Verificar se a próxima data de vacinação é em um dia
-            if (diffDias === 1) {
-                // Exibir o pop-up
-                alert("Atenção! Sua próxima vacinação está agendada para amanhã.");
-            }
-        });
-    </script>
+    // Adicione a função de validação ao formulário
+    document.querySelector("form").addEventListener("submit", function(event) {
+        if (!validarDataVacina()) {
+            event.preventDefault();
+        }
+    });
+</script>
+
 </body>
 
 </html>

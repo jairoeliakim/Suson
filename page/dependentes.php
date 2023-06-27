@@ -22,7 +22,8 @@
     ?>
 </header>
 <body >
-<?php
+    <div class = "cadastrar">
+    <?php
         // verifica se o usuário está logado
         if (isset($_SESSION["id_pessoa"])) {
             // obtém o ID do usuário da variável de sessão
@@ -72,7 +73,7 @@
         ?>
         
     
-    <form action="../controle/registros_dependentes.php" method="POST">
+    <form action="../controle/registros_dependentes.php" method="POST" >
         
         <button type="button" class="btn btn-success" id="toggleFormButton" title='Se desejas registrar um novo dependente, clique aqui!'>Registrar novo dependente?</button>
        
@@ -110,6 +111,9 @@
         </div>
     </form>
     
+
+    </div>
+
     <script>
         $(document).ready(function() {
             $('#toggleFormButton').click(function() {

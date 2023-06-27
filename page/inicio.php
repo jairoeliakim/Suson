@@ -40,6 +40,8 @@ include 'cabecalho.php';
     <i class="bi bi-gear"></i><br>+ Cadastro
     </button>
   </div>
+  <?php include_once "exibe_vacina.php"?>
+
 </body>
 
 
